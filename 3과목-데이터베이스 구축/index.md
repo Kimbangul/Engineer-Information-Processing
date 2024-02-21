@@ -111,7 +111,7 @@ ex: '학년'에 저장된 1,2,4 등은 더 이상 세분화할 수 없다.
 - 기본키는 NULL 값을 가질 수 없다. 즉 튜플에서 기본키로 설정된 속성에는 NULL 값이 있어서는 안 됨
 
 3. 대체키(Alternate key)
-- 후보키가 둘 이상일 때 기본키를 제외한 나머지 후보키를 릐미함.
+- 후보키가 둘 이상일 때 기본키를 제외한 나머지 후보키를 의미함.
 - 보조키라고도 함
 
 4. 슈퍼키(Super key)
@@ -514,3 +514,70 @@ DCL은 데이터의 보안, 무결성, 회ㅣ복, 병행 수행 제어 등을 �
 2. ROLLBACK: 데이터베이스 조작 작업이 비정상적으로 종료되었을 때 원래의 상태로 복구함
 3. GRANT: 데이터베이스 사용자에게 사용 권한을 부여함
 4. REVOKE: 데이터베이스 사용자의 사용 권한을 취소함
+
+## CREATE TABLE
+CREATE TABLE은 테이블을 정의하는 명령문이다.
+
+### 표기 형식
+```sql
+CREATE TABLE 테이블명
+(속성명 데이터_타입 [DEFAULT 기본값] [NOT NULL], …
+[, PRIMARY KEY(기본키_속성명, …)]
+[, UNIQUE(대체키_속성명, …)]
+[, FOREIGN KEY(외래키_속성명, …)]
+[REFERENCES 참조테이블(기본키_속성명, …)]
+[ON DELETE 옵션]
+[ON UPDATE 옵션]
+[, CONSTRAINT 제약조건명] [CHECK (조건식)]);
+```
+- 기본 테이블에 포함될 모든 속성에 대하여 속성명과 그 속성의 데이터 타입, 기본값, NOT NULL 여부를 지정한다.
+- `PRIMARY KEY`: 기본키로 사용할 속성 또는 속성의 집합을 지정함
+- `UNIQUE`: 대체키로 사용할 속성 또는 속성의 집합을 지정하는 것으로 UNIQUE로 지정한 속성은 중복된 값을 가질 수 없음
+- `FOREIGN KEY` ~ REFERENCES ~ 
+```
+1. 참조할 다른 테이블과 그 테이블을 참조할 때 사용할 외래키 속성을 지정함
+2. 외래키가 지정되면 참조 무결성의 CASCADE 법칙이 적용됨
+3. ON DELETE 옵션: 참조 테이블의 튜플이 삭제되었을 때 기본 테이블에 취해야 할 사항을 지정함. 옵션에는 NO ACTION, CASCADE, SET NULL, SET DEFAULT가 있음
+4. ON UPDATE 옵션: 참조 테이블의 참조 속성 값이 변경되었을 때 기본 테이블에 취해야 할 사항을 지정한다. 옵션에는 NO ACTION, CASCADE, SET NULL, SET DEFAULT가 있음
+5. CONSTRAINT: 제약 조건의 이름을 지정함. 이름을 지정할 필요가 없으면 CHECK 절만 사용하여 속성 값에 대한 제약 조건을 명시함
+4. CHECK: 속성 값에 대한 제약 조건을 정의함
+```
+
+## ALTER TABLE
+ALTER TABLE은 테이블에 대한 정의를 변경하는 명령문이다.
+
+### 표기 형식
+```sql
+ALTER TABLE 테이블명 ADD 속성명 데이터_타입 [DEFAULT ‘기
+본값’];
+ALTER TABLE 테이블명 ALTER 속성명 [SET DEFAULT ‘기본값’];
+ALTER TABLE 테이블명 DROP COLUMN 속성명 [CASCADE];
+```
+- `ADD`: 새로운 속성(열)을 추가할 때 사용함
+- `ALTER`: 특정 속성의 Default 값을 변경할 때 사용함
+- `DROP COLUMN`: 특정 속성을 삭제할 때 사용함
+
+1. 학생 테이블에 최대 3문자로 구성되는 '학년' 속성을 추가하시오.
+```sql
+ALTER TABLE 학생 ADD 학년 VARCHAR(3);
+```
+
+2. 학생 테이블의 '학번' 필드의 테이터 타입과 크기를 VARCHAR(10)으로 하고 NULL 값이 입력되지 않도록 변경하시오.
+```sql
+ALTER TABLE 학생 ALTER 학번 VARCHAR(10) NOT NULL;
+```
+
+## DROP
+DROP은 스키마, 도메인, 기본 테이블, 뷰 테이블,인덱스, 제약 조건 등을 제거하는 명령문이다.
+
+### 표기 형식
+```sql
+DROP SCHEMA 스키마명 [CASCADE | RESTRICT];
+DROP DOMAIN 도메인명 [CASCADE | RESTRICT];
+DROP TABLE 테이블명 [CASCADE | RESTRICT];
+DROP VIEW 뷰명 [CASCADE | RESTRICT];
+DROP INDEX 인덱스명 [CASCADE | RESTRICT];
+DROP CONSTRAINT 제약조건명;
+```
+- `CASCADE`: 제거할 요소를 참조하는 다른 모든 개체를 함께 제거함. 즉 주 테이블의 데이터 제거 시 각 외래키와 관계를 맺고 있는 모든 데이터를 제거하는 참조 무결성 제약 조건을 설정하기 위해 사용됨.
+- `RESTRCT`: 다른 개체가 제거할 요소를 참조중일 떄는 제거를 취소함
