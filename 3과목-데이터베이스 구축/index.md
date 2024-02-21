@@ -581,3 +581,67 @@ DROP CONSTRAINT 제약조건명;
 ```
 - `CASCADE`: 제거할 요소를 참조하는 다른 모든 개체를 함께 제거함. 즉 주 테이블의 데이터 제거 시 각 외래키와 관계를 맺고 있는 모든 데이터를 제거하는 참조 무결성 제약 조건을 설정하기 위해 사용됨.
 - `RESTRCT`: 다른 개체가 제거할 요소를 참조중일 떄는 제거를 취소함
+
+1. 학생 테이블을 제거하되, 학생 테이블을 참조하는 모든 데이터를 함께 제거하시오.
+```sql
+DROP TABLE 학생 CASCADE;
+```
+
+## DCL (Data Control Language, 데이터 제어어)의 개념
+DCL(데이터 제어어)는 데이터의 보안, 무결성, 회복, 병행 제어 등을 제어하는 데 사용하는 언어이다.
+- DCL은 데이터베이스 관리자(DBA)가 데이터 관리를 목적으로 사용한다.
+- DCL에는 GRANT, REVOKE, COMMIT, ROLLBACK, SAVEPOINT 등이 있다.
+
+## GRANT / REVOKE
+데이터베이스 관리자가 데이터베이스 사용자에게 권한을 부여하거나 취소하기 위한 명령어이다.
+- `GRANT`: 권한 부여를 위한 명령어
+- `REVOKE`: 권한 취소를 위한 명령어
+- 사용자등급 지정 및 해제
+
+```sql
+GRANT 사용자등급 TO 사용자_ID_리스트 [IDENTIFIED BY 암호];
+REVOKE 사용자등급 FROM 사용자_ID_리스트;
+```
+
+1. 사용자 ID가 "NABI" 인 사람에게 데이터베이스 및 테이블을 생성할 수 있는 권한을 부여하는 SQL문을 작성하시오.
+```sql
+GRANT RESOURCE TO NABI;
+```
+
+2. 사용자 ID가 "STAR"인 사람에게 단순히 데이터베이스에 있는 정보를 검색할 수 있는 권한을 부여하는 SQL문을 작성하시오.
+```sql
+GRANT CONNECT TO STAR;
+```
+
+- 테이블 및 속성에 대한 권한 부여 및 취소
+```sql
+GRANT 권한_리스트 ON 개체 TO 사용자 [WITH GRANT
+OPTION];
+REVOKE [GRANT OPTION FOR] 권한_리스트 ON 개체 FROM 사
+용자 [CASCADE];
+```
+
+- 권한 종류: `ALL`,`SELECT`, `INSERT`, `DELETE`, `UPDATE`, `ALTER` 등
+- `WITH GRANT OPTION`: 부여받은 권한을 다른 사용자에게 다시 부여할 수 있는 권한을 부여함
+- `GRANT OPTION FOR`: 다른 사용자에게 권한을 부여할 수 있는 권한을 취소함.
+- `CASCADE`: 권한 취소 시 권한을 부여벋었던 사용자가 다른 사용자에게 부여한 권한도 연쇄적으로 취소함
+
+1. 사용자 ID가 "NAVI" 인 사람에게 고객 테이블에 대한 모든 권한과 다른 사람에게 권한을 부여할 수 있는 권한까지 부여하는 SQL문을 작성하시오.
+
+```sql
+GRANT ALL ON 고객 TO NABI WITH GRANT OPTION;
+```
+
+2. 사용자 ID가 “STAR”인 사람에게 부여한 <고객> 테이블에 대한 권한 중 UPDATE 권한을 다른 사람에게 부여할 수 있는 권한만 취소하는 SQL문을 작성하시오.
+
+```sql
+REVOKE GRANT OPTION FOR UPDATE ON 고객 FROM STAR;
+```
+
+## COMMIT
+트랜잭션이 성공적으로 끝나면 데이터베이스가 새로운 일관성(Consistency) 상태를 가지기 위해 변경된 모든 내용을 데이터베이스에 반영하여야 하는데, 이떄 사용하는 명령이 COMMIT 이다.
+- COMMIT 명령을 실행하지 않아도 DML문이 성공적으로 완료되면 자동으로 COMMIT하고, DML이 실패하면 자동으로 ROLLBACK이 되도록 `Auto Commit` 기능을 설정할 수 있다.
+
+## ROLLBACK
+ROLLBACK은 아직 COMMIT 되지 않은 변경된 모든 내용들을 취소하고 데이터베이스를 이전 상태로 되돌리는 명령어이다.
+- 트랜잭션 전체가 성공적으로 끝나지 못하면 일부 변경된 내용만 데이터베이스에 반영되는 비일관성(Inconsistency) 인 상태를 가질 수 있기 때문에 일부분만 완료된 트랜잭션은 롤백(Rollback)되어야 한다.
