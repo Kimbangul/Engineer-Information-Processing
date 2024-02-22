@@ -890,3 +890,43 @@ FROM 테이블명
 
 4. `EXCEPT`
 첫 번째 SELECT문의 조회 결과에서 두 번째 SELECT문의 조회 결과를 제외한 행을 출력함
+
+1. <사원> 테이블과 <직원> 테이블을 통합하는 질의문을 작성하시오. (단, 같은 레코드가 중복되어 나오지 않게 하시오.)
+
+```sql
+SELECT * FROM 사원
+UNION
+SELECT * FROM 직원;
+```
+
+2. <사원> 테이블과 <직원> 테이블에 공통으로 존재하는 레코드만 통합하는 질의문을 작성하시오.
+```sql
+SELECT * FROM 사원
+INTERSECT
+SELECT * FROM 직원;
+```
+
+## INNER JOIN
+INNER JOIN은 일반적으로 EQUI JOIN과 NON-EQUI JOIN으로 구분된다.
+- 조건이 없는 INNER JOIN을 수행하면 CROSS JOIN 과 동일한 결과를 얻을 수 있다.
+
+### EQUI JOIN
+- EQUI JOIN 은 JOIN 대상 테이블에서 공통 속성을 기준으로 '='(equal) 비교에 의해 같은 값을 가지는 행을 연결하여 결과를 생성하는 JOIN 방법이다.
+- WHERE 절을 이용한 EQUI JOIN 의 표기 방식
+```sql
+SELECT [테이블명1.]속성명, [테이블명2.]속성명, …
+FROM 테이블명1, 테이블명2, …
+WHERE 테이블명1.속성명 = 테이블명2.속성명;
+```
+- NATURAL JOIN 절을 이용한 EQUI JOIN 의 표기 형식
+```sql
+SELECT [테이블명1.]속성명, [테이블명2.]속성명, …
+FROM 테이블명1 NATURAL JOIN 테이블명2;
+```
+- JOIN ~ USING 절을 이용한 EQUI JOIN 의 표기 방식
+```sql
+SELECT [테이블명1.]속성명, [테이블명2.]속성명, …
+FROM 테이블명1 JOIN 테이블명2 USING(속성명);
+```
+
+1. <학생> 테이블과 <학과> 테이블에서 ‘학과코드’ 값이 같은 튜플을 JOIN하여 ‘학번’, ‘이름’, ‘학과코드’, ‘학과명’을 출력하는 SQL문을 작성하시오.
