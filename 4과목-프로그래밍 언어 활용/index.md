@@ -286,4 +286,10 @@ abc123def
 ```java
 System.out.println
 ```
-- printlm() 메소드는 출력 후 다음 줄로 이동한다는 것을 제외하면 printf() 메소드와 사용법이 동일하다.
+- println() 메소드는 출력 후 다음 줄로 이동한다는 것을 제외하면 print() 메소드와 사용법이 동일하다.
+```java
+System.out.print(“abc123” + “def”);
+```
+```
+abc123def
+```
