@@ -1489,3 +1489,64 @@ IPv6은 현재 사용하고 있는 IP 주소 체계인 IPv4의 주소 부족 문
 5. 스위치(Switch)
 - 브리지와 같이 LAN과 LAN을 연결하여 훨씬 더 큰 LAN을 만드는 장치
 - 하드웨어를 기반으로 처리하므로 전송 속도가 빠름
+
+6. 라우터(Router)
+브리지와 같이 LAN과 LAN의 연결 기능에 데이터 전송의 최적 경로를 선택할 수 있는 기능이 추가된 것으로, 서로 다른 LAN이나 LAN과 WAN의 연결도 수행함
+
+7. 게이트웨이(Gateway)
+- 전 계층(1~7계층)의 프로토콜 구조가 다른 네트워크의 연결을 수행함
+- LAN 에서 다른 네트워크에 데이터를 보내거나 다른 네트워크로부터 데이터를 받아들이는 출입구 역할을 함
+
+## 응용 계층의 주요 프로토콜
+1. FTP(File Transfer Protocol)
+컴퓨터와 컴퓨터 또는 컴퓨터와 인터넷 사이에서 파일을 주고받을 수 있도록 하는 원격 파일 전송 프로토콜
+
+2. SMTP(Simple Mail Transfer Protocol)
+전자 우편을 교환하는 서비스
+
+3. TELNET
+- 멀리 떨어져 있는 컴퓨터에 접속하여 자신의 컴퓨터처럼 사용할 수 있도록 해주는 서비스
+- 프로그램을 실행하는 등 시스템 관리 작업을 할 수 있는 가상의 터미널(Virtual Terminal) 기능을 수행
+
+4. SNMP(Simple Network Management Protocol)
+TCP/IP 의 네트워크 관리 프로토콜로, 라우터나 허브 등 네트워크 기기의 네트워크 정보를 네트워크 관리 시스템에 보내는 데 사용되는 표준 통신 규약
+
+5. DNS (Domain Name System)
+도메인 네임을 IP 주소로 매핑(Mapping) 하는 시스템
+
+6. HTTP(HyperText Transfer Protocol)
+월드 와이드 웹(www)에서 HTML 문서를 송수신 하기 위한 표준 프로토콜
+
+## 전송 계층의 주요 프로토콜
+1. TCP(Transmission Control Protocol)
+- 양방향 연결(Full Duplex Connection)형 서비스를 제공함
+- 스트림 위주의 전달(패킷 단위)을 함
+- 신뢰성 있는 경로를 확립하고 메시지 전송을 감독함
+- 순서 제어, 오류 제어, 흐름 제어 기능을 함
+- TCP 프로토콜의 헤더는 기본적으로 20Byte에서 60Byte까지 사용할 수 있는데, 선택적으로 40Byte를 더 추가할 수 있으므로 최대 100Byte까지 크기를 확장할 수 있음.
+
+2. UDP(User Datagram Protocol)
+- 데이터 전송 전에 연결을 설정하지 않는 비연결형 서비스를 제공함
+- TCP에 비해 상대적으로 단순한 헤더 구조를 가지므로 오버헤드가 적고, 흐름제어나 순서 제어가 없어 전송 속도가 빠름
+- 실시간 전송에 유리하며, 신뢰성보다는 속도가 중요시되는 네트워크에서 사용됨
+
+3. RTCP(Real-Time Control Protocol)
+- RTP(Real-time Transport Protocol) 패킷의 전송 품질을 제어하기 위한 제어 프로토콜
+- 세션(Session) 에 참여한 각 참여자들에게 주기적으로 제어 정보를 전송함
+
+## 인터넷 계층의 주요 프로토콜
+1. IP(Internet Protocol)
+- 전송할 데이터에 주소를 지정하고, 경로를 설정하는 기능을 함
+- 비연결형인 데이터그램 방식을 사용하는 것으로 신뢰성이 보장되지 않음
+
+2. IMCP(Internet Control Message Protocol, 인터넷 제어 메시지 프로토콜)
+IP와 조합하여 통신중에 발생하는 오류의 처리와 전송 경로 변경 등을 위한 제어 메세지를 관리하는 역할을 하며, 헤더는 8Byte로 구성됨
+
+3. IMGP(Internet Group Management Protocol, 인터넷 그룹 관리 프로토콜)
+멀티캐스트를 지원하는 호스트나 라우터 사이에서 멀티캐스트 그룹 유지를 위해 사용됨
+
+4. ARP(Address Resolution Protocol, 주소 분석 프로토콜)
+호스트의 IP 주소를 호스트와 연결된 네트워크 접속 장치의 물리적 주소(MAC Address)로 바꿈
+
+5. RARP(Reverse Address Resolution Protocol)
+ARP와 반대로 물리적 주소를 IP 주소로 변환하는 기능을 함
