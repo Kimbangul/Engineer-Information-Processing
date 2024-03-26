@@ -1,13 +1,12 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 
-int main(void){
-  char str[50] = "nation";
-  char *p2 = "alter"; // alter 문자열이 저장된 곳의 주소를 저장
+int main(int argc, char *argv[]){
+  int arr[2][3] = {1,2,3,4,5,6};
+  int (*p)[2] = NULL;
+  p = arr;
 
-  strcat(str, p2);
-
-  printf("%s", str);
-
+  printf("%d, ", *(p[0]+1) + *(p[1]+2));
+  printf("%d", *(*(p+1)+0) + *(*(p+1)+1));
   return 0;
 }
