@@ -1216,3 +1216,200 @@ Basic Path Testing. 테스트 설계자가 절차적 설계, 논리적 복잡성
 - 삽입 이상: 정보 저장시 불필요한 세부정보까지 입력해야됨
 - 삭제 이상: 정보 삭제 시 원치 않은 다른 정보까지 삭제됨
 - 갱신 이상: 중복 데이터 중 특정 부분만 수정되어서 중복된 값이 모순을 일으키는 경우
+
+### 소프트웨어 생명주기 모델
+- 폭포수 모델: 각 단계를 확실히 마무리 지은 후 다음
+- 프로토타이핑: 요구사항 프로토타입 구현, 피드백 반영
+- 나선형 모델: 위험 최소화, 점진적으로 완벽한 시스템
+
+### 병행 제어 기법의 종류
+- 로킹: 트랜잭션의 순차적 진행을 보장하는 기법
+- 낙관적 검증: 일단 트랜잭션 수행, 종료시 검증
+- 타임스탬프순서: 트랜잭션 실행하기 전 타임스탬프로 실행
+
+### 소프트웨어 개발 보안의 3대 요소
+- 기밀성: 인가되지 않은 개인 혹은 시스템 접근에 따른 정보 공개 및 노출을 차단하는 특성
+- 무결성: 정당한 방법을 따르지 않고서는 데이터가 변경될 수 없음. 데이터 정확성/완전성 보장
+- 가용성: 권한을 가진 사용자나 애플리케이션이 원하는 서비스를 지속해서 사용할 수 있도록 보장
+
+### 스키마의 유형
+- 외부: 사용자, 응용프로그래머가 필요로 하는 논리적 구조
+- 개념: 개체간 관계, 접근 권한, 보안 정책 등 정의
+- 내부: 물리적 구조를 정의한 스키마, 저장 장치의 관점에서 봄
+
+### 데이터베이스 설계순서
+- 요구조건 분석 -> 개념적 설계 -> 논리적 설계 -> 물리적 설계 -> 구현
+
+### UI 설계 원칙
+- 직관성: 누구나 쉽게 이해하고, 쉽게 사용할 수 있어야됨
+- 유효성: 정확하고 완벽하게 사용자의 목표를 달성해야 함
+- 학습성: 초보, 숙련자가 쉽게 배우고 사용할 수 있어야 함
+- 유연성: 사용자의 요구사항을 최대한 포용하고 실수 방지
+
+## SQL과 JOIN 정리
+1) DDL (Definition)
+
+1. CREATE
+테이블 생성
+```sql
+CREATE TABLE table_name (
+  column1 datatype,
+  column2 datatype,
+  ...
+);
+```
+
+2. ALTER
+데이터베이스 객체 수정 (테이블이나 컬럼 등)
+```sql
+ALTER TABLE table_name
+ADD column_name datatype;
+
+ALTER TABLE table_name
+MODIFY column_name datatype;
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+```
+
+3. DROP
+테이블 없애기
+```sql
+DROP TABLE table_name;
+```
+
+4. TRUNCATE
+데이터 삭제, 구조는 유지
+```sql
+TRUNCATE TABLE table_name;
+```
+
+2) DML (Manipulation)
+
+1. SELECT
+데이터 조회
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+2. INSERT
+데이터 삽입
+```sql
+INSERT INTO table_name (column1, column2 ...)
+VALUES (value1, value2...);
+```
+
+3. UPDATE
+데이터 갱신
+```sql
+UPDATE table_name
+SET column1 = value, column2 = value2 ...
+WHERE condition;
+```
+
+4. DELETE
+데이터 삭제
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+
+3) DCL (Control)
+1. GRANT
+유저에게 권한 부여
+```sql
+GRANT SELECT, ... ON TABLE TO USER
+```
+
+2. REVOKE
+주어진 권한 회수
+```sql
+REVOKE SELECT, ... ON TABLE FROM USER
+```
+
+### JOIN 종류
+1) 내부 조인(Inner Join)
+두 테이블에서 일치하는 조건이 있는 행만 반환합니다.
+
+```sql
+SELECT * FROM A INNER JOIN B ON A.id = B.id;
+```
+
+2) 왼쪽 외부 조인(Left Outer Join)
+왼쪽 테이블의 모든 행과 오른쪽 테이블에서 일치하는 행을 반환합니다. 일치하지 않는 오른쪽 테이블의 행은 NULL로 채워집니다.
+```sql
+SELECT * FROM A LEFT OUTER JOIN B ON A.id = B.id;
+```
+
+3) 오른쪽 외부 조인(Right Outer Join)
+오른쪽 테이블의 모든 행과 왼쪽 테이블에서 일치하는 행을 반환합니다. 일치하지 않는 왼쪽 테이블의 행은 NULL로 채워집니다.
+```sql
+SELECT * FROM A RIGHT OUTER JOIN ON A.id = B.id;
+```
+
+4) 완전 외부 조인(Full Outer Join)
+양쪽 테이블의 모든 행을 반환합니다. 일치하지 않는 행은 NULL로 채워집니다.
+```sql
+SELECT * FROM A FULL OUTER JOIN ON A.id = B.id;
+```
+
+5) 자연 조인(Natural Join)
+두 테이블에서 동일한 이름의 열을 기준으로 일치하는 행을 결합합니다. ON 절이 필요 없으며, 동일한 이름의 열만 자동으로 결합합니다.
+```sql
+SELECT * FROM A NATURAL JOIN B;
+```
+
+6) 세타 조인(Theta Join)
+지정된 조건(Theta 조건)에 따라 두 테이블을 결합합니다. ON 절을 사용하여 원하는 조건을 설정할 수 있습니다.
+```sql
+SELECT * FROM A JOIN B ON A.id < B.id;
+```
+
+7) 교차 조인(Cross Join)
+두 테이블의 모든 행의 조합을 반환합니다. Cartesian Product 라고 부르며, 조인 조건 없이 두 테이블의 모든 조합을 생성합니다.
+```sql
+SELECT * FROM A CROSS JOIN B;
+```
+
+8) 자기 조인(Self Join)
+동일한 테이블을 두 번 사용하여 자기 자신과 조인합니다. 주로 별칭(Alias)을 사용하여 두 테이블을 구분합니다.
+```sql
+SELECT * FROM A AS A1
+JOIN A AS A2 ON
+A1.parent_id = A2.id;
+```
+
+## 네트워크 & 프로토콜 정리
+### OSI 7계층
+1. 물리 계층
+- 장비: 케이블, 허브, 리피터
+- 프로토콜: RS-232, V.35
+- 전기적, 기계적 신호 전송 담당
+
+2. 데이터 링크 계층
+- 장비: 스위치, 브리지
+- 프로토콜: Ethernet, PPP, FDDI
+- 프레임 단위로 데이터 전송, MAC 주소를 이용한 통신을 관리합니다.
+
+3. 네트워크 계층
+- 장비: 라우터
+- 프로토콜: IP, ICMP, IPSec
+- 패킷 단위로 데이터를 전송하며, 라우팅을 통해 목적지까지 데이터를 전달합니다.
+
+4. 전송 계층
+- 프로토콜: TCP, UDP
+- 데이터 전송의 신뢰성 및 흐름 제어, 오류 검출 및 복구를 담당합니다.
+
+5. 세션 계층
+- 프로토콜: NetBIOS, PPTP, RTP
+- 세션 설정, 관리, 종료를 담당하며, 데이터 교환을 동기화합니다.
+
+6. 표현 계층
+- 프로토콜: SSL, TLS, JPEG, MPEG
+- 데이터의 형식, 인코딩, 암호화를 담당하며 데이터의 표현을 처리합니다.
+
+7. 응용 계층
+- 프로토콜: HTTP, FTP, SMTP, DNS
+- 사용자와 가장 가까운 계층으로, 응용 프로그램 간의 데이터 교환을 지원합니다.
