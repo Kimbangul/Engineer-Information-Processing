@@ -225,3 +225,4 @@ REVOKE SELECT, INSERT ON student from lee;
 4. 연계 방식의 종류 중 직접 연계 종류
 - DB Link: 한 데이터베이스에서 네트워크상의 다른 데이터베이스에 접속하기 위한 설정을 해주는 오라클 객체
 - DB Connection Pool: 수신 시스템 WAS에서 송신 시스템 DB로 연결되는 Connection Pool을 생성하고 프로그램 소스에서 WAS에 설정된  Connection Pool 명을 참고하여 구현한다.
+
