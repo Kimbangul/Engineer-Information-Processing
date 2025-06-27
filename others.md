@@ -1,0 +1,2 @@
+# 1. 정보보호는 정보의 수집 및 가공, 저장, 검색, 송수신 중 발생할 수 있는 정보의 훼손과 변조, 유출 등을 방지하기 위한 관리적, 기술적 수단을 마련하는 것이다. 정보보호의 목표 5가지를 쓰시오.
+- 기밀성(Confidentiality), 무결성(Integrity), 가용성(Availability), 인증성(Authenicity), 책임성(Accountability)
