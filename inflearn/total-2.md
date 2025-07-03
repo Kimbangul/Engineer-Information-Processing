@@ -1275,4 +1275,79 @@ Python의 set 자료형은 고유한 값들의 집합을 나타내는 데이터 
 
 14. 스키마의 유형, 데이터베이스 설계순서
 1) 스키마 유형
-- 외부: 사용자,
+- 외부: 사용자, 응용프로그래머가 필요로 하는 논리적 구조
+- 개념: 개체간 관계, 접근 권한, 보안 정책 등 정의
+- 내부: 물리적 구조를 정의한 스키마, 저장 장치의 관점에서 봄
+
+2) 데이터베이스 설계순서
+요구조건 분석 -> 개념적설계 -> 논리적설계 -> 물리적설계 -> 구현
+
+3) UI 설계 원칙
+- 직관성: 누구나 쉽게 이해하고, 쉽게 사용할 수 있어야 함
+- 유효성: 정확하고 완벽하게 사용자의 목표를 달성해야 함
+- 학습성: 초보, 숙련자가 쉽게 배우고 사용할 수 있어야 함
+- 유연성: 사용자의 요구사항을 최대한 포용하고 실수 방지
+
+# SQL과 JOIN 정리
+1. DDL(Definition)
+1-1. CREATE
+> 테이블 생성
+```sql
+CREATE TABLE table_name {
+  column1 datatype,
+  column2 datatype
+}
+```
+
+1-2. ALTER
+> 데이터베이스 객체 수정 (테이블이나 컬럼 등등)
+```sql
+ALTER TABLE table_name
+ADD column_name datatype;
+
+ALTER TABLE table_name
+MODIFY column_name datatype;
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+```
+
+1-3. DROP
+> 테이블 없애기기
+```sql
+DROP TABLE table_name;
+```
+
+1-4. TRUNCATE
+> 데이터 삭제, 구조는 유지
+```sql
+TRUNCATE TABLE table_name
+```
+
+2. DML(Manipulation)
+2-1. SELECT
+> 데이터 조회
+```sql
+SELECT column1, column2 ... 
+FROM table_name
+WHERE condition;
+```
+
+2-2. INSERT
+```sql
+INSERT INTO table_name (column1, column2 ...)
+VALUES (value1, value2, ...);
+```
+
+2-4. UPDATE
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2
+WHERE condition;
+```
+
+2-5. DELETE
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
